@@ -19,6 +19,13 @@ describe Train do
       expect(new_train.city).to(eq("portland"))
     end
   end
+  describe ".add_train_to_db" do
+    it 'adds train to the database' do
+      new_train = Train.new( {city: "portland"})
+      Train.add_train_to_db(new_train)
+      expect(Train.find_train_in_db("portland")).to(eq([new_train]))
+    end
+  end
 end
 
 describe City do
