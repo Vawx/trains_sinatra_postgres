@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'pry'
 require 'pg'
+require './lib/titleize'
 
 also_reload( './lib/**/*.rb')
 
@@ -21,11 +22,9 @@ end
 post '/add_train' do
   train_city = params.fetch("train_city")
   if !City.city_exists?(train_city)
-    City.add_city_to_db(City.new({name: train_city}))
+    City.add_city_to_db(City.new({name: train_city.titleize}))
   end
   City.get_all_trains_in_city(train_city).length
-  new_train = Train.new( {city: train_city} )
-  new_train.number = City.get_all_trains_in_city(train_city).length + 1
-  Train.add_train_to_db( new_train )
+  Train.add_train_to_db(Train.new( {city: train_city.titleize, number: City.get_all_trains_in_city(train_city).length + 1} ) )
   redirect '/'
 end

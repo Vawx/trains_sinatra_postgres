@@ -27,3 +27,9 @@ UPDATE [column name] SET [variable name] = [value]
 
 Update column with condition:
 UPDATE [column name] SET [variable name] = [value] WHERE [variable name] == [value];
+
+Reset number to 1 (must be seq PRIMARY KEY):
+ALTER SEQUENCE [column]_[variable name]_seq RESTART with 1;
+
+Delete all from column:
+DELETE FROM [column name] *;

@@ -16,8 +16,12 @@ class City
 
   define_singleton_method(:city_exists?) do |city_name|
     current_cities = TRAIN_DB.exec("SELECT name FROM city;")
-    return false if current_cities.first.class == NilClass
-    return current_cities.first.fetch("name") == city_name
+    current_cities.each do |city|
+      if city.fetch("name").downcase == city_name.downcase
+        return true
+      end
+    end
+    return false
   end
 
   define_singleton_method(:add_city_to_db) do |city|
