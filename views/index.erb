@@ -1,1 +1,38 @@
-<h1>Train</h1>
+<div class="container">
+  <div class="col-lg-4 col-lg-offset-1">
+    <div class="row">
+      <h3 style="text-align:center;">Add Train</h3>
+      <div class="well">
+        <form class="" action="/add_train" method="post">
+          <div class="wrapper" style="text-align:center;">
+            <label for="">City:</label>
+            <div class="">
+              <input type="text" name="train_city" value="">
+              <div class="" style="padding-top:12px;">
+                <button class="btn btn-primary" type="submit" name="button">Add</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-lg-offset-2">
+    <div class="row">
+      <h3 style="text-align:center;">Current Trains</h3>
+      <div class="well">
+        <% @all_cities.each do |city| %>
+          <ul>
+            <h3><%= city.name %></h3>
+            <div class="" style="padding-left:2em;">
+              <% trains = City.get_all_trains_in_city(city.name) %>
+              <% trains.each do |train| %>
+                <li><a href="/update_train/<%= train.number %>"><%= train.city %> : # <%= train.number %></li></a> 
+              <%end%>
+            </div>
+          </ul>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
