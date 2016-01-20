@@ -17,17 +17,19 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-4 col-lg-offset-2">
+  <div class="col-lg-6 col-lg-offset-1">
     <div class="row">
       <h3 style="text-align:center;">Current Trains</h3>
       <div class="well">
         <% @all_cities.each do |city| %>
           <ul>
-            <h3><%= city.name %></h3>
+            <div class="header-a">
+              <a href="/update_city/<%= city.id %>"><h3><%= city.name %></h3></a>
+            </div>
             <div class="" style="padding-left:2em;">
               <% trains = City.get_all_trains_in_city(city.name) %>
               <% trains.each do |train| %>
-                <li><a href="/update_train/<%= train.number %>"><%= train.city %> : # <%= train.number %></li></a> 
+                <li><a href="/update_train/<%= train.number %>"><%= train.city %> : # <%= train.number %></li></a>
               <%end%>
             </div>
           </ul>

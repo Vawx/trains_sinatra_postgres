@@ -1,7 +1,11 @@
 .header-a a {
-  color: black;
+  color: rgb(80,80,80);
 }
 .header-a a:hover, .header-a a:focus {
     color: indianred;
     text-decoration: none;
+}
+
+a {
+  color: steelblue;
 }
