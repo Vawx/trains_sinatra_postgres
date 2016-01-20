@@ -35,4 +35,11 @@ describe City do
       expect(new_city.id).to(be_instance_of(Fixnum))
     end
   end
+  describe ".get_city_by_id" do
+    it 'gets city by id' do
+      new_city = City.new( {name: "not portland"})
+      id = City.add_city_to_db(new_city)
+      expect(City.find_city_in_db(new_city.id).id).to(eq(id.to_i))
+    end
+  end
 end
