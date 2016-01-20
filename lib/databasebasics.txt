@@ -1,0 +1,29 @@
+Enter database:
+\c [database name]
+
+Create table:
+CREATE TABLE [name] ([variable name] [variable type],);
+
+Alter table(add variable):
+ALTER TABLE [name] ADD [variable name] [variable type];
+
+Alter table(drop variable):
+ALTER TABLE [name] DROP [variable name] [variable type];
+
+Insert(adds into existing column):
+INSERT INTO [column name] ([variable name], [variable name], etc) VALUES ([value],[value]);
+
+Select from column:
+SELECT [variable name],[variable name] FROM [column name];
+
+Select all from column:
+SELECT * FROM [column name];
+
+Select all from column, with condition:
+SELECT * FROM [column name] WHERE [variable name] > [value];
+
+Update column:
+UPDATE [column name] SET [variable name] = [value]
+
+Update column with condition:
+UPDATE [column name] SET [variable name] = [value] WHERE [variable name] == [value];
