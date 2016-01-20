@@ -7,7 +7,7 @@ class Train
 
   define_method(:==) do |other|
     return self.city == other.city
-  end 
+  end
 
   define_singleton_method(:get_train_by_number) do |number|
     return TRAIN_DB.exec( "SELECT * FROM train WHERE number = #{number.to_i};" )
@@ -24,6 +24,10 @@ class Train
       trains.push( Train.new( {city: train.fetch( "city" ), number: train.fetch( "number" ) } ) )
     end
     return trains
+  end
+
+  define_singleton_method(:delete_train) do |train_number|
+    TRAIN_DB.exec("DELETE FROM train WHERE number = #{train_number.to_i};")
   end
 
   define_singleton_method(:all) do

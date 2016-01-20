@@ -25,6 +25,12 @@ get '/update_city/:id' do
   erb :city
 end
 
+post '/update_city/:id/:number' do
+  Train.delete_train(params[:id].to_i)
+  @city = City.find_city_in_db(params[:number].to_i)
+  erb :city
+end
+
 post '/add_train' do
   train_city = params.fetch("train_city")
   if !City.city_exists?(train_city)

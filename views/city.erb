@@ -12,7 +12,11 @@
         <ul>
           <% trains = City.get_all_trains_in_city(@city.name) %>
           <% trains.each do |train| %>
-            <li><a href="/update_train/<%= train.number %>"><%= train.city %> : # <%= train.number %></li></a>
+            <li>
+            <a href="/update_train/<%= train.number %>"><%= train.city %> : # <%= train.number %></a>
+            <form class="" action="/update_city/<%= train.number %>/<%= @city.id %>" method="post">
+                <button type="submit" class ="btn btn-primary" name="button">Delete</button>
+            </form></li>
           <%end%>
         </ul>
       </div>

@@ -32,11 +32,12 @@ class City
   define_singleton_method(:find_city_in_db) do |id|
     all_found_cities = TRAIN_DB.exec( "SELECT * FROM city;" )
     all_found_cities.each do |city|
-      if city.fetch("id") == id.to_s
+      if city.fetch("id").to_s == id.to_s
         return_city = City.new( {name: city.fetch("name"), id: city.fetch("id")})
         return return_city
       end
     end
+    return nil
   end
 
   define_singleton_method(:all) do
