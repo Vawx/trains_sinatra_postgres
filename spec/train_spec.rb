@@ -25,7 +25,7 @@ describe Train do
   describe "#newTrain" do
     it 'makes a new train' do
       new_train = Train.new( {city: "portland", number: 1} )
-      expect(new_train.city).to(eq("portland"))
+      expect(new_train.name).to(eq("portland"))
     end
   end
   describe ".add_train_to_db" do

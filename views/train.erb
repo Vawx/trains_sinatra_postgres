@@ -1,8 +1,10 @@
 <div class="container">
   <div class="col-lg-6 col-lg-offset-3">
-    <h3><%=@train.first.fetch("city")%> #<%=@train.first.fetch("number")%></h3>
+    <h3><%=@train.first.fetch("name")%> #<%=@train.first.fetch("number")%></h3>
     <div class="well">
-      This is important.
+      <% @cities.each do |city| %>
+        <li><%= city.name %></li>
+      <% end %>
     </div>
   </div>
 </div>

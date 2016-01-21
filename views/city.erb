@@ -11,10 +11,10 @@
           <h3>Current Trains</h3>
           </div>
           <ul>
-            <% trains = City.get_all_trains_in_city(@city.name) %>
+            <% trains = City.get_all_trains_in_city(@city) %>
             <% trains.each do |train| %>
               <li>
-              <a href="/update_train/<%= train.number %>"><%= train.city %> : # <%= train.number %></a>
+              <a href="/update_train/<%= train.number %>"><%= train.name %> : # <%= train.number %></a>
               <form class="" action="/update_city/<%= train.number %>/<%= @city.id %>" method="post">
                   <button type="submit" class ="btn btn-primary" name="button">Delete</button>
               </form></li>
@@ -30,9 +30,10 @@
         <form class="" action="/add_train" method="post">
           <div class="" style="text-align:center;">
             <div class="" style="padding-top:12px;">
+              <input type="text" name="name" placeholder="Enter A Name...">
+              <input name="city" value="<%= @city.name %>" hidden>
               <button type="submit" class="btn btn-primary" name="">Add Another Train</button>
             </div>
-            <input type="text" name="train_city" value="<%= @city.name %>" hidden>
           </div>
         </form>
       </div>

@@ -5,9 +5,19 @@
       <div class="well">
         <form class="" action="/add_train" method="post">
           <div class="wrapper" style="text-align:center;">
-            <label for="">City:</label>
             <div class="">
-              <input type="text" name="train_city" value="">
+              <label for="">City</label>
+              <div class="">
+                <input type="text" name="city" value="">
+              </div>
+            </div>
+            <div class="">
+              <label for="">Name</label>
+              <div class="">
+                <input type="text" name="name" value="">
+              </div>
+            </div>
+            <div class="">
               <div class="" style="padding-top:12px;">
                 <button class="btn btn-primary" type="submit" name="button">Add</button>
               </div>
@@ -22,14 +32,15 @@
       <h3 style="text-align:center;">Current Trains</h3>
       <div class="well">
         <% @all_cities.each do |city| %>
+        <%=  %>
           <ul>
             <div class="header-a">
               <a href="/update_city/<%= city.id %>"><h3><%= city.name %></h3></a>
             </div>
             <div class="" style="padding-left:2em;">
-              <% trains = City.get_all_trains_in_city(city.name) %>
+              <% trains = City.get_all_trains_in_city(city) %>
               <% trains.each do |train| %>
-                <li><a href="/update_train/<%= train.number %>"><%= train.city %> : # <%= train.number %></li></a>
+                <li><a href="/update_train/<%= train.number %>"><%= train.name %> : # <%= train.number %></li></a>
               <%end%>
             </div>
           </ul>

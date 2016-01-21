@@ -47,6 +47,7 @@ class City
   define_singleton_method(:find_city_in_db) do |id|
     all_found_cities = TRAIN_DB.exec( "SELECT * FROM city;" )
     all_found_cities.each do |city|
+
       if city.fetch("id").to_s == id.to_s
         return_city = City.new( {name: city.fetch("name"), id: city.fetch("id")})
         return return_city
@@ -65,10 +66,13 @@ class City
   end
 
   define_singleton_method(:get_all_trains_in_city) do |city|
-    all_train_for_city = TRAIN_DB.exec("SELECT * FROM train WHERE train.city = '#{city}';")
+    all_train_for_city = TRAIN_DB.exec("SELECT train.* FROM city
+                                        JOIN train_city ON (city.id = train_city.city_id)
+                                        JOIN train ON (train_city.train_number = train.number)
+                                        WHERE city.id = #{city.id};")
     trains = []
     all_train_for_city.each do |train|
-      new_train = Train.new( {city: train.fetch("city"), number: train.fetch("number") } )
+      new_train = Train.new( {name: train.fetch("name"), number: train.fetch("number") } )
       trains.push( new_train )
     end
     return trains

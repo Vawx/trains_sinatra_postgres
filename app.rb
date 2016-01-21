@@ -17,6 +17,7 @@ end
 get '/update_train/:id' do
   train_by_number = Train.get_train_by_number(params[:id])
   @train = train_by_number
+  @cities = Train.get_all_cities_for_train(train_by_number)
   erb :train
 end
 
@@ -43,11 +44,18 @@ post '/update_city/:id/:number' do
 end
 
 post '/add_train' do
-  train_city = params.fetch("train_city")
-  if !City.city_exists?(train_city)
-    City.add_city_to_db(City.new({name: train_city.titleize}))
+  
+  train_name = params.fetch("name")
+  city_name = params.fetch("city")
+  city = City.find_by_partial_name(city_name)
+  if !city.empty?
+    train_db_id = Train.add_train_to_db(Train.new( {name: train_name } ) )
+    Train.attach_to_city(train_db_id, city)
+  else
+    city = City.find_city_in_db(City.add_city_to_db(City.new({name: city_name})))
+    train_db_id = Train.add_train_to_db(Train.new( {name: train_name } ) )
+    Train.attach_to_city(train_db_id, city)
   end
-  City.get_all_trains_in_city(train_city).length
-  Train.add_train_to_db(Train.new( {city: train_city.titleize, number: City.get_all_trains_in_city(train_city).length + 1} ) )
+  #City.get_all_trains_in_city(train_city).length
   redirect '/'
 end
