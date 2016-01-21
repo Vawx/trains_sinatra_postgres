@@ -23,10 +23,25 @@ class City
     return false
   end
 
+  define_singleton_method(:find_id_by_city_name) do |city_name|
+    result = TRAIN_DB.exec("SELECT * FROM city WHERE name = '#{city_name}'")
+    found_city = City.new( { name: result.first.fetch("name"), id: result.first.fetch("id") } )
+    return found_city.id
+  end
+
   define_singleton_method(:add_city_to_db) do |city|
     result = TRAIN_DB.exec( "INSERT INTO city (name) VALUES ('#{city.name}') RETURNING id;" )
     @id = result.first.fetch("id")
     return @id
+  end
+
+  define_singleton_method(:find_by_partial_name) do |partial|
+    partial_results = TRAIN_DB.exec("SELECT * FROM city WHERE name LIKE '%#{partial.titleize}%';")
+    results = []
+    partial_results.each do |result|
+      results.push(result)
+    end
+    return results
   end
 
   define_singleton_method(:find_city_in_db) do |id|

@@ -25,6 +25,13 @@ get '/update_city/:id' do
   erb :city
 end
 
+get '/filter_train' do
+  cities = City.find_by_partial_name( params.fetch("search_field").to_s )
+  found_city = City.find_id_by_city_name( cities[ 0 ].fetch( "name" ) )
+
+  redirect '/update_city/' + found_city.to_s
+end
+
 post '/update_city/:id/:number' do
   Train.delete_train(params[:id].to_i)
   @city = City.find_city_in_db(params[:number].to_i)

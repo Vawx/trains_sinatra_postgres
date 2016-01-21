@@ -14,6 +14,14 @@
       <div class="jumbotron header-a">
         <a href="/"><h1><i class="fa fa-train"></i> TRAINS!</h1></a>
         <p>Many to many.</p>
+        <div class="wrapper" style="text-align:right;">
+          <form action="/filter_train" class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" name="search_field" placeholder="Search by city...">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
     <%=yield%>
