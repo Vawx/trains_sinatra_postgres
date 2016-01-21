@@ -2,9 +2,19 @@
   <div class="col-lg-6 col-lg-offset-3">
     <h3><%=@train.first.fetch("name")%> #<%=@train.first.fetch("number")%></h3>
     <div class="well">
-      <% @cities.each do |city| %>
-        <li><%= city.name %></li>
-      <% end %>
+      <ul>
+        <% @cities.each do |city| %>
+          <li><a href="/update_city/<%= city.id %>"><%= city.name %></a></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="well">
+      <form class="" action="/add_city_to_train" method="post">
+        <input name="name" value="<%= @train.first.fetch("name") %>" hidden>
+        <input name="number" value="<%= @train.first.fetch("number") %>" hidden>
+        <input name="city" placeholder="Enter A City">
+        <button type="submit">Add A City To The Train</button>
+      </form>
     </div>
   </div>
 </div>

@@ -44,7 +44,6 @@ post '/update_city/:id/:number' do
 end
 
 post '/add_train' do
-  
   train_name = params.fetch("name")
   city_name = params.fetch("city")
   city = City.find_by_partial_name(city_name)
@@ -56,6 +55,17 @@ post '/add_train' do
     train_db_id = Train.add_train_to_db(Train.new( {name: train_name } ) )
     Train.attach_to_city(train_db_id, city)
   end
-  #City.get_all_trains_in_city(train_city).length
+  redirect '/'
+end
+
+post '/add_city_to_train' do
+  train = Train.get_train_by_number(params[:number])
+  city = City.find_by_partial_name(params[:city])
+  if !city.empty?
+    Train.attach_to_city(train.first.fetch("number"), city)
+  else
+    city = City.find_city_in_db(City.add_city_to_db(City.new({name: params[:city]})))
+    Train.attach_to_city(train.first.fetch("number"), city)
+  end
   redirect '/'
 end

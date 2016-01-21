@@ -10,8 +10,11 @@ class Train
   end
 
   define_singleton_method(:attach_to_city) do |train_id, city|
-
-    city_id = city.id
+    if city.class == Array
+      city_id = city[0].fetch("id")
+    else
+      city_id = city.id
+    end
     TRAIN_DB.exec("INSERT INTO train_city (train_number, city_id) VALUES (#{train_id},'#{city_id}');")
   end
 
