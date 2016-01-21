@@ -26,10 +26,14 @@ get '/update_city/:id' do
 end
 
 get '/filter_train' do
-  cities = City.find_by_partial_name( params.fetch("search_field").to_s )
-  found_city = City.find_id_by_city_name( cities[ 0 ].fetch( "name" ) )
-
-  redirect '/update_city/' + found_city.to_s
+  if params.fetch("search_field").to_s.length > 0
+    cities = City.find_by_partial_name( params.fetch("search_field").to_s )
+    if !cities.empty?
+      found_city = City.find_id_by_city_name( cities[ 0 ].fetch( "name" ) )
+      redirect '/update_city/' + found_city.to_s
+    end
+  end
+  redirect '/'
 end
 
 post '/update_city/:id/:number' do
