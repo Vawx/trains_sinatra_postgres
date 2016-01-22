@@ -25,6 +25,24 @@
           </div>
         </form>
       </div>
+      <h3 style="text-align:center;">Add City</h3>
+      <div class="well">
+        <form class="" action="/add_city" method="post">
+          <div class="wrapper" style="text-align:center;">
+            <div class="">
+              <label for="">City</label>
+              <div class="">
+                <input type="text" name="city" value="">
+              </div>
+            </div>
+            <div class="">
+              <div class="" style="padding-top:12px;">
+                <button class="btn btn-primary" type="submit" name="button">Add</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <div class="col-lg-6 col-lg-offset-2">
@@ -32,10 +50,14 @@
       <h3 style="text-align:center;">Current Trains</h3>
       <div class="well">
         <% @all_cities.each do |city| %>
-        <%=  %>
           <ul>
             <div class="header-a">
               <a href="/update_city/<%= city.id %>"><h3><%= city.name %></h3></a>
+              <form class="form-inline" action="/delete_city" method="post">
+                <input name="_method" value="delete" hidden>
+                <input name="city" value="<%= city.name %>" hidden>
+                <button type="submit">Delete</button>
+              </form>
             </div>
             <div class="" style="padding-left:2em;">
               <% trains = City.get_all_trains_in_city(city) %>

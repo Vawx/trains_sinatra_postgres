@@ -35,6 +35,10 @@ class City
     return @id
   end
 
+  define_singleton_method(:delete_from_db) do |city_name|
+    TRAIN_DB.exec("DELETE FROM city * WHERE name = '#{city_name}';")
+  end
+
   define_singleton_method(:find_by_partial_name) do |partial|
     partial_results = TRAIN_DB.exec("SELECT * FROM city WHERE name LIKE '%#{partial.titleize}%';")
     results = []
@@ -57,7 +61,7 @@ class City
   end
 
   define_singleton_method(:all) do
-    all_found_cities = TRAIN_DB.exec("SELECT * FROM city;")
+    all_found_cities = TRAIN_DB.exec("SELECT DISTINCT * FROM city;")
     cities = []
     all_found_cities.each do |city|
       cities.push(City.new( {name: city.fetch("name"), id: city.fetch("id") } ) )

@@ -1,4 +1,4 @@
-require 'sinatra'
+ require 'sinatra'
 require 'sinatra/reloader'
 require 'pry'
 require 'pg'
@@ -41,6 +41,18 @@ post '/update_city/:id/:number' do
   Train.delete_train(params[:id].to_i)
   @city = City.find_city_in_db(params[:number].to_i)
   erb :city
+end
+
+post '/add_city' do
+  city_name = params.fetch("city")
+  City.add_city_to_db(City.new({name: city_name}))
+  redirect '/'
+end
+
+delete '/delete_city' do
+  city_name = params.fetch("city")
+  City.delete_from_db(city_name)
+  redirect '/'
 end
 
 post '/add_train' do
